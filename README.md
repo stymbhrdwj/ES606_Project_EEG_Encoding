@@ -1,6 +1,6 @@
 # ES606_Project_EEG_Encoding
 
-Applying the linearizing encoding model and end-to-end AlexNet on the THINGS EEG1 dataset. 
+Applying the linearizing encoding model and end-to-end AlexNet by Gifford et al. on the THINGS EEG1 dataset by Grootswagers et al.
 
 ### Dataset reference: https://osf.io/hd6zk/
 
