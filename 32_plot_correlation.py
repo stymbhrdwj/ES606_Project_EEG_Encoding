@@ -403,19 +403,19 @@ plt.savefig(fig_dir+"single_comparison.png", bbox_inches='tight', dpi=300)
 import pandas as pd
 peak = np.zeros((len(all_subs) + 1, 6))
 
-peak[:-1, 0] = within_corr.mean(1).max(1)
-peak[:-1, 1] = times[within_corr.mean(1).argmax(1)]
-peak[:-1, 2] = between_corr.mean(1).max(1)
-peak[:-1, 3] = times[between_corr.mean(1).argmax(1)]
-peak[:-1, 4] = within_corr_e2e.mean(1).max(1)
-peak[:-1, 5] = times[within_corr_e2e.mean(1).argmax(1)]
+peak[:-1, 0] = np.round(within_corr.mean(1).max(1), 3)
+peak[:-1, 1] = np.round(times[within_corr.mean(1).argmax(1)]*1000, 1)
+peak[:-1, 2] = np.round(between_corr.mean(1).max(1), 3)
+peak[:-1, 3] = np.round(times[between_corr.mean(1).argmax(1)]*1000, 1)
+peak[:-1, 4] = np.round(within_corr_e2e.mean(1).max(1), 3)
+peak[:-1, 5] = np.round(times[within_corr_e2e.mean(1).argmax(1)]*1000, 1)
 
-peak[-1, 0] = within_corr.mean(0).mean(0).max()
-peak[-1, 1] = times[within_corr.mean(0).mean(0).argmax()]
-peak[-1, 2] = between_corr.mean(0).mean(0).max()
-peak[-1, 3] = times[between_corr.mean(0).mean(0).argmax()]
-peak[-1, 4] = within_corr_e2e.mean(0).mean(0).max()
-peak[-1, 5] = times[within_corr_e2e.mean(0).mean(0).argmax()]
+peak[-1, 0] = round(within_corr.mean(0).mean(0).max(), 3)
+peak[-1, 1] = round(times[within_corr.mean(0).mean(0).argmax()]*1000, 1)
+peak[-1, 2] = round(between_corr.mean(0).mean(0).max(), 3)
+peak[-1, 3] = round(times[between_corr.mean(0).mean(0).argmax()]*1000, 1)
+peak[-1, 4] = round(within_corr_e2e.mean(0).mean(0).max(), 3)
+peak[-1, 5] = round(times[within_corr_e2e.mean(0).mean(0).argmax()]*1000, 1)
 
 df = pd.DataFrame({'lin_peak_corr (within)':peak[:,0],
 				   'lin_peak_time (within)':peak[:,1],
