@@ -16,11 +16,11 @@ The code has been modified extensively for this dataset, and assumes the directo
 
 The first step is to transform the given EEGLAB format data into numpy arrays. Then visualize the ERPs and reject the participants whose ERPs show large spikes and artifacts. See `plots/erps/reject` for the rejected participants.
 
-## 1. Extract feature maps 
+## 1. Extract DNN feature maps 
 
 We use a pretrained AlexNet to extract feature maps from the images in the THINGS image dataset. Then we perform a kernel PCA with a polynomial kernel to extract the 1000 most important components of our data.
 
-## 2. Training DNNs
+## 2. Training
 
 As a first step, we train a linearizing encoding model, essentially a linear regression between the KPCA'd feature maps and the EEG data for each channel and time-point. We also try training a randomly initalized AlexNet in an end-to-end fashion to synthesize the EEG visual response when fed in the corresponding image.
 
