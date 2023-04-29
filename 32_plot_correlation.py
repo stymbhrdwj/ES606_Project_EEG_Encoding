@@ -395,3 +395,33 @@ for s in range(len(within_corr_e2e)):
 	tit = 'Participant ' + str(all_subs[s])
 	axs[s].set_title(tit)
 plt.savefig(fig_dir+"single_comparison.png", bbox_inches='tight', dpi=300)
+
+# =============================================================================
+# Save the peak correlation data in a csv
+# =============================================================================
+
+import pandas as pd
+peak = np.zeros((len(all_subs) + 1, 6))
+
+peak[:-1, 0] = within_corr.mean(1).max(1)
+peak[:-1, 1] = times[within_corr.mean(1).argmax(1)]
+peak[:-1, 2] = between_corr.mean(1).max(1)
+peak[:-1, 3] = times[between_corr.mean(1).argmax(1)]
+peak[:-1, 4] = within_corr_e2e.mean(1).max(1)
+peak[:-1, 5] = times[within_corr_e2e.mean(1).argmax(1)]
+
+peak[-1, 0] = within_corr.mean(0).mean(0).max()
+peak[-1, 1] = times[within_corr.mean(0).mean(0).argmax()]
+peak[-1, 2] = between_corr.mean(0).mean(0).max()
+peak[-1, 3] = times[between_corr.mean(0).mean(0).argmax()]
+peak[-1, 4] = within_corr_e2e.mean(0).mean(0).max()
+peak[-1, 5] = times[within_corr_e2e.mean(0).mean(0).argmax()]
+
+df = pd.DataFrame({'lin_peak_corr (within)':peak[:,0],
+				   'lin_peak_time (within)':peak[:,1],
+				   'lin_peak_corr (between)':peak[:,2],
+				   'lin_peak_time (between)':peak[:,3],
+				   'e2e_peak_corr (within)':peak[:,4],
+				   'e2e_peak_time (within)':peak[:,5]}, index=all_subs+['avg'])
+
+df.to_csv('peaks.csv')
