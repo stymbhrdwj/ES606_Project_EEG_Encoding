@@ -26,7 +26,7 @@ As a first step, we train a linearizing encoding model, essentially a linear reg
 
 ## 3. Correlation analysis
 
-As a measure of how well our models synthesize the EEG data, we perform a correlation analysis using Pearson's-r. We observe significant correlation  above chance level for both within and between subjects model training. Curiously, the end-to-end encoding model shows a poorer correlation compared to the linearizing encoding model, which is contrary to what Gifford et al. report. This could be explained by the fact that their dataset (THINGS EEG2) contains many more trial repetitions (4 for train, 80 for test) compared to THINGS EEG1 (1 for train, 12 for test). As a result of the fewer test repetitions, we skip the noise ceiling analysis.
+As a measure of how well our models synthesize the EEG data, we perform a correlation analysis using Pearson's-r. We observe significant correlation  above chance level for both within and between subjects model training. Curiously, the end-to-end encoding model shows a poorer correlation compared to the linearizing encoding model. As a result of the fewer test repetitions, we skip the noise ceiling analysis.
 
 ### Average correlation for linearizing encoding model (within subjects)
 
@@ -40,6 +40,10 @@ As a measure of how well our models synthesize the EEG data, we perform a correl
 
 <img src="plots/correlation/averaged_within_e2e.png" width=400>
 
+### Comparison between the different approaches, averaged over subjects
+
+<img src="plots/correlation/avg_comparison.png" width=400>
+
 ### Single participant correlation for linearizing encoding model (within subjects)
 
 <img src="plots/correlation/single_within.png" width=1000>
@@ -51,6 +55,10 @@ As a measure of how well our models synthesize the EEG data, we perform a correl
 ### Single participant correlation for end-to-end AlexNet encoding model (within subjects)
 
 <img src="plots/correlation/single_within_e2e.png" width=1000>
+
+### Comparison between the different approaches for single participants
+
+<img src="plots/correlation/single_comparison.png" width=1000>
 
 ### Single channel correlation for linearizing encoding model (within subjects)
 
