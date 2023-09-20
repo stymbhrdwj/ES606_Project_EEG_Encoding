@@ -1,6 +1,6 @@
 # ES606_Project_EEG_Encoding
 
-Applying the linearizing encoding model and end-to-end AlexNet by Gifford et al. on the THINGS EEG1 dataset by Grootswagers et al.
+Applying the linearizing encoding model and end-to-end AlexNet by Gifford et al. on the THINGS EEG1 dataset by Grootswagers et al. Below we summarize the methodology and results. See the project report PDF for more details on motivation, background and the dataset.
 
 ### Dataset reference: https://osf.io/hd6zk/
 
@@ -14,19 +14,19 @@ The code has been modified extensively for this dataset, and assumes the directo
 
 ## 0. Prepare the dataset
 
-The first step is to transform the given EEGLAB format data into numpy arrays. Then visualize the ERPs and reject the participants whose ERPs show large spikes and artifacts. See `plots/erps/reject` for the rejected participants.
+The first step is to transform the given preprocessed EEGLAB format data into numpy arrays. Then visualize the ERPs and reject the participants whose ERPs show large spikes and artifacts. See `plots/erps/reject` for the rejected participants.
 
 ## 1. Extract DNN feature maps 
 
-We use a pretrained AlexNet to extract feature maps from the images in the THINGS image dataset. Then we perform a kernel PCA with a polynomial kernel to extract the 1000 most important components of our data.
+We use AlexNet, pretrained on the ImageNet dataset to extract feature maps from the images in the THINGS image dataset. Since this is a very high-dimensional vector, we perform dimensionality reduction using kernel PCA with a polynomial kernel of degree 4 and retain the 1000 most important components of the feature vectors.
 
 ## 2. Training
 
-As a first step, we train a linearizing encoding model, essentially a linear regression between the KPCA'd feature maps and the EEG data for each channel and time-point. We also try training a randomly initalized AlexNet in an end-to-end fashion to synthesize the EEG visual response when fed in the corresponding image.
+As a first step, we train a linearizing encoding model, essentially a linear regression between the principal components of the feature vector and the EEG data for each channel and time-point. We also train randomly initalized AlexNets in an end-to-end fashion to synthesize the EEG visual response when fed in the corresponding image.
 
 ## 3. Correlation analysis
 
-As a measure of how well our models synthesize the EEG data, we perform a correlation analysis using Pearson's-r. We observe significant correlation  above chance level for both within and between subjects model training. Curiously, the end-to-end encoding model shows a poorer correlation compared to the linearizing encoding model. As a result of the fewer test repetitions, we skip the noise ceiling analysis.
+As a measure of how well our models synthesize the EEG data, we perform a correlation analysis using Pearson's-$r$. We observe significant correlation  above chance level for both within and between subjects model training. Curiously, the end-to-end encoding model shows a poorer correlation compared to the linearizing encoding model. We skip the noise ceiling analysis due to much fewer test repetitions.
 
 ### Average correlation for linearizing encoding model (within subjects)
 
