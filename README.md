@@ -22,11 +22,15 @@ We use AlexNet, pretrained on the ImageNet dataset to extract feature maps from 
 
 ## 2. Training
 
-As a first step, we train a linearizing encoding model, essentially a linear regression between the principal components of the feature vector and the EEG data for each channel and time-point. We also train randomly initalized AlexNets in an end-to-end fashion to synthesize the EEG visual response when fed in the corresponding image.
+As a first step, we train a linearizing encoding model, essentially a linear regression between the principal components of the feature vector and the EEG data for each channel and time-point. 
+```math
+W_{t, c} = \left(X^T X\right)^{-1} X^T y_{t, c}
+```
+We also train randomly initalized AlexNets in an end-to-end fashion to synthesize the EEG visual response when fed in the corresponding image.
 
 ## 3. Correlation analysis
 
-As a measure of how well our models synthesize the EEG data, we perform a correlation analysis using Pearson's-$r$. We observe significant correlation  above chance level for both within and between subjects model training. Curiously, the end-to-end encoding model shows a poorer correlation compared to the linearizing encoding model. We skip the noise ceiling analysis due to much fewer test repetitions.
+As a measure of how well our models synthesize the EEG data, we perform a correlation analysis using Pearson's-r. We observe significant correlation above chance level for both within and between subjects model training. As expected, the randomly initialized end-to-end encoding model shows a poorer correlation compared to the linearizing encoding model because of the worse representation learned in the lower layers of the network compared to the model pretrained on the entire ImageNet dataset. We skip the noise ceiling analysis due to much fewer test repetitions.
 
 ### Average correlation for linearizing encoding model (within subjects)
 
@@ -44,18 +48,6 @@ As a measure of how well our models synthesize the EEG data, we perform a correl
 
 <img src="plots/correlation/avg_comparison.png" width=400>
 
-### Single participant correlation for linearizing encoding model (within subjects)
-
-<img src="plots/correlation/single_within.png" width=1000>
-
-### Single participant correlation for linearizing encoding model (between subjects)
-
-<img src="plots/correlation/single_between.png" width=1000>
-
-### Single participant correlation for end-to-end AlexNet encoding model (within subjects)
-
-<img src="plots/correlation/single_within_e2e.png" width=1000>
-
 ### Comparison between the different approaches for single participants
 
 <img src="plots/correlation/single_comparison.png" width=1000>
@@ -71,3 +63,7 @@ As a measure of how well our models synthesize the EEG data, we perform a correl
 ### Single channel correlation for end-to-end AlexNet encoding model (within subjects)
 
 <img src="plots/correlation/ch_corr_avg_e2e.png" width=600>
+
+## 4. Future Work
+
+It would be interesting to see how Transfer learning compares to the linearizing encoding model in terms of correlation.
